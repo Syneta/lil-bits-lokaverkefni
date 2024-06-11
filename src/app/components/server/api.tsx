@@ -1,8 +1,10 @@
 'use client'
-import { Dish, Drink, Order, ApiDish, ApiDrink } from './types';
+import { DishCard, DrinkCard } from '../card';
+import { Dish, Drink, OrderType, ApiDish, ApiDrink } from '../../types';
 
 const urlMeal = 'https://www.themealdb.com/api/json/v1/1/random.php';
-const urlDrink = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+const urlDrink = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=z';
+//const urlDrink = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 
 export const FetchMeal = async (url: string) => {
     try {
@@ -42,11 +44,13 @@ export const RenderDrink = async () => {
         return (
             <div>
                 {drinkData.map((item: ApiDrink) => (
-                    <div key={item.idDrink}>
-                        <h2>{item.strDrink}</h2>
-                        <img src={item.strDrinkThumb} alt={item.strDrink} width={200}/>
-                        <p>{item.strInstructions}</p>
-                    </div>
+                    <DrinkCard 
+                        idDrink={item.idDrink}
+                        strDrink={item.strDrink}
+                        strCategory={item.strCategory}
+                        strArea={item.strArea}
+                        strDrinkThumb={item.strDrinkThumb}
+                    />
                 ))}
             </div>
         );
@@ -66,11 +70,13 @@ export const RenderDish = async () => {
         return (
             <div className='border-2 border-black p-2'>
                 {mealData.map((item: ApiDish) => (
-                    <div key={item.idMeal}>
-                        <h2>{item.strMeal}</h2>
-                        <img src={item.strMealThumb} alt={item.strMeal} width={200} />
-                        <p>{item.strInstructions}</p>
-                    </div>
+                    <DishCard
+                    idMeal={item.idMeal}
+                    strMeal={item.strMeal}
+                    strArea={item.strArea}
+                    strMealThumb={item.strMealThumb}
+                    strCategory={item.strCategory}
+                    />
                 ))}
             </div>
         );

@@ -16,8 +16,8 @@ export type Dish = Provision & {
 	cousine: string
 }
 
-export type Order = {
-	id: number
+export type OrderType = {
+	id: string
 	email: string
 	dish: Dish
 	drinks: Drink[]
@@ -28,13 +28,20 @@ export type Order = {
 export type ApiDish = {
     idMeal: string,
     strMeal: string,
-    strInstructions: string,
+    strArea: string,
     strMealThumb: string,
+	strCategory: string,
 }
 
 export type ApiDrink = {
     idDrink: string,
     strDrink: string,
-    strInstructions: string,
+    strCategory: string,
+    strArea: string,
     strDrinkThumb: string,
+}
+
+export type NextButtonProps = {
+    pageName: string,
+    name: string
 }

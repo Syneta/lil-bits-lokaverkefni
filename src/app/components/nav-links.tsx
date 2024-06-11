@@ -18,14 +18,25 @@ export function Links() {
                     Home
                 </Link>
 
+                <Link className={`link ${pathname === '/loginone' ? 'active' : ''}`}
+                    href="/">
+                    Home
+                </Link>
+
                 <Link
-                    className={`link ${pathname === '/meals' ? 'active' : ''}`}
+                    className={`link ${pathname === '/drinkstwo' ? 'active' : ''}`}
                     href="/meals">
                     Meals
                 </Link>
 
                 <Link
-                    className={`link ${pathname === '/drinks' ? 'active' : ''}`}
+                    className={`link ${pathname === '/mealsthree' ? 'active' : ''}`}
+                    href="/drinks">
+                    Drinks
+                </Link>
+
+                <Link
+                    className={`link ${pathname === '/checkoutfour' ? 'active' : ''}`}
                     href="/drinks">
                     Drinks
                 </Link>
