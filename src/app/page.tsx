@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import OrderComponent from "./order";
 import { RenderDish, RenderDrink } from "./components/server/api";
@@ -5,10 +6,24 @@ import { HeaderComponent } from "./components";
 import Carousel from "./components/carousel/carousel";
 import { NextButton } from "./components/button";
 import { Overview } from "./overview";
+import { useContext } from "react";
+import { SomeContext } from "./SomeContext";
 
 export default function Home() {
+  const { value, toggleValue } = useContext(SomeContext);
+
   return (
-    <div style={{ maxWidth: 1200, marginLeft: 'auto', marginRight: 'auto', marginTop: 64 }}>
+    <div
+      style={{
+        maxWidth: 1200,
+        marginLeft: "auto",
+        marginRight: "auto",
+        marginTop: 64,
+        // backgroundColor: theme.value === "light" ? "white" : "black",
+        backgroundColor: value === "light" ? "white" : "black",
+      }}
+    >
+      <button onClick={toggleValue}>Toggle</button>
       <NextButton pageName="loginone" name="Login" />
       <Carousel>
         <img src="https://via.placeholder.com/1600x300" alt="placeholder" />
@@ -16,6 +31,5 @@ export default function Home() {
         <img src="https://via.placeholder.com/1600x300" alt="placeholder" />
       </Carousel>
     </div>
-
-  )
+  );
 }

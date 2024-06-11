@@ -1,90 +1,105 @@
-'use client'
-import { DishCard, DrinkCard } from '../card';
-import { Dish, Drink, OrderType, ApiDish, ApiDrink } from '../../types';
+"use client";
+import { DishCard, DrinkCard } from "../card";
+import { Dish, Drink, OrderType, ApiDish, ApiDrink } from "../../types";
+import { useEffect, useState } from "react";
 
-const urlMeal = 'https://www.themealdb.com/api/json/v1/1/random.php';
-const urlDrink = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=z';
+const urlMeal = "https://www.themealdb.com/api/json/v1/1/random.php";
+const urlDrink = "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=z";
 //const urlDrink = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 
 export const FetchMeal = async (url: string) => {
-    try {
-        const response = await fetch(urlMeal);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error:', error);
-        throw error;
+  try {
+    const response = await fetch(urlMeal);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
     }
-}
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
 
 export const FetchDrink = async (url: string) => {
-    try {
-        const response = await fetch(urlDrink);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error:', error);
-        throw error;
+  try {
+    const response = await fetch(urlDrink);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
     }
-}
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
 
 export const RenderDrink = async () => {
-    try {
+  const [state, setState] = useState<ApiDrink[] | null>(null);
+  useEffect(() => {
+    const getDrink = async () => {
+      try {
         const drink = await FetchDrink(urlDrink);
         const drinkData = drink.drinks;
+        setState(drinkData);
 
-        console.log('Drink:', drink);
-
-        return (
-            <div>
-                {drinkData.map((item: ApiDrink) => (
-                    <DrinkCard 
-                        idDrink={item.idDrink}
-                        strDrink={item.strDrink}
-                        strCategory={item.strCategory}
-                        strArea={item.strArea}
-                        strDrinkThumb={item.strDrinkThumb}
-                    />
-                ))}
-            </div>
+        console.log("Drink:", drink);
+      } catch (error: any) {
+        console.error("Error:", error);
+        throw new Error(
+          `Error fetching data from ${urlDrink}: ${error.message}`
         );
-    } catch (error: any) {
-        console.error('Error:', error);
-        throw new Error(`Error fetching data from ${urlDrink}: ${error.message}`);
-    }
-}
+      }
+    };
+
+    getDrink();
+  }, []);
+
+  if (!state) {
+    return <p>Loading ... </p>;
+  }
+
+  return (
+    <div>
+      {state.map((item: ApiDrink) => (
+        <DrinkCard
+          idDrink={item.idDrink}
+          strDrink={item.strDrink}
+          strCategory={item.strCategory}
+          strArea={item.strArea}
+          strDrinkThumb={item.strDrinkThumb}
+        />
+      ))}
+    </div>
+  );
+};
 
 export const RenderDish = async () => {
-    try {
-        const meal = await FetchMeal(urlMeal);
-        const mealData = meal.meals;
+  try {
+    const meal = await FetchMeal(urlMeal);
+    const mealData = meal.meals;
 
-        console.log('Meal:', meal);
+    console.log("Meal:", meal);
 
-        return (
-            <div className='border-2 border-black p-2'>
-                {mealData.map((item: ApiDish) => (
-                    <DishCard
-                    idMeal={item.idMeal}
-                    strMeal={item.strMeal}
-                    strArea={item.strArea}
-                    strMealThumb={item.strMealThumb}
-                    strCategory={item.strCategory}
-                    />
-                ))}
-            </div>
-        );
-    } catch (error: any) {
-        console.error('Error:', error);
-        throw new Error(`Error fetching data from ${urlMeal}: ${error.message}`);
-    }
-}
+    return (
+      <div className="border-2 border-black p-2">
+        {mealData.map((item: ApiDish) => (
+          <DishCard
+            idMeal={item.idMeal}
+            strMeal={item.strMeal}
+            strArea={item.strArea}
+            strMealThumb={item.strMealThumb}
+            strCategory={item.strCategory}
+          />
+        ))}
+      </div>
+    );
+  } catch (error: any) {
+    console.error("Error:", error);
+    throw new Error(`Error fetching data from ${urlMeal}: ${error.message}`);
+  }
+};
 
 /*
 const RenderDrinkAndMeal = async () => {
