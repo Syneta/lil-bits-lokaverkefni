@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation"
 import Link from "next/link"
+import Router from "next/router"
 import Image from "next/image"
 
 export function Links() {
@@ -18,25 +19,31 @@ export function Links() {
                     Home
                 </Link>
 
-                <Link className={`link ${pathname === '/loginone' ? 'active' : ''}`}
+                <Link className={`link ${pathname === '/login' ? 'active' : ''}`}
                     href="/">
-                    Home
+                    Login
                 </Link>
 
                 <Link
-                    className={`link ${pathname === '/drinkstwo' ? 'active' : ''}`}
+                    className={`link ${pathname === '/drinks' ? 'active' : ''}`}
                     href="/meals">
                     Meals
                 </Link>
 
                 <Link
-                    className={`link ${pathname === '/mealsthree' ? 'active' : ''}`}
+                    className={`link ${pathname === '/meals' ? 'active' : ''}`}
                     href="/drinks">
                     Drinks
                 </Link>
 
                 <Link
-                    className={`link ${pathname === '/checkoutfour' ? 'active' : ''}`}
+                    className={`link ${pathname === '/date' ? 'active' : ''}`}
+                    href="/drinks">
+                    Date
+                </Link>
+
+                <Link
+                    className={`link ${pathname === '/checkout' ? 'active' : ''}`}
                     href="/drinks">
                     Drinks
                 </Link>

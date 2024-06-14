@@ -4,7 +4,7 @@ import { ApiDish, ApiDrink } from '../types';
 
 export const DishCard: React.FC<ApiDish> = ({ idMeal, strArea, strMeal, strMealThumb, strCategory }) => {
     return (
-        <div key={idMeal} className="flex border-3 border-black rounded-sm p-1 bg-slate-300">
+        <div key={idMeal} className="flex flex-col border-3 border-black rounded-sm p-1 bg-slate-300 w-min text-nowrap">
             <h2>{strMeal}</h2>
             <img src={strMealThumb} width={200} height={200} />
             <h2>Type: {strCategory}</h2>

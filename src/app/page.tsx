@@ -1,7 +1,5 @@
 "use client";
 import Image from "next/image";
-import OrderComponent from "./order";
-import { RenderDish, RenderDrink } from "./components/server/api";
 import { HeaderComponent } from "./components";
 import Carousel from "./components/carousel/carousel";
 import { NextButton } from "./components/button";
@@ -24,7 +22,7 @@ export default function Home() {
       }}
     >
       <button onClick={toggleValue}>Toggle</button>
-      <NextButton pageName="loginone" name="Login" />
+      <NextButton pageName="login" name="Start Order" />
       <Carousel>
         <img src="https://via.placeholder.com/1600x300" alt="placeholder" />
         <img src="https://via.placeholder.com/1600x300" alt="placeholder" />

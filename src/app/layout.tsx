@@ -1,11 +1,13 @@
 "use client";
 
+import { OrderType } from "./types";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Links } from "./components/nav-links";
 import { createContext, useMemo, useState } from "react";
 import { SomeContext } from "./SomeContext";
+import { OrderContext } from "./ordercontext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,64 +21,78 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [state, setState] = useState("light");
+  const order = {
+    drinks: [
+      {
+        brewer: "",
+        category: "",
+        description: "",
+        id: "",
+        imageSource: "",
+        name: "",
+        price: 1000,
+      },
+    ],
+    email: "",
+    count: 0,
+    date: new Date(),
+    dish: {
+      id: "",
+      category: "",
+      cousine: "",
+      description: "",
+      imageSource: "",
+      name: "",
+      price: 2500,
+    },
+  };
+  const [state, setState] = useState(order);
 
-  const contextValue = useMemo(
+  const orderContext = useMemo(
     () => ({
       value: state,
-      toggleValue: () => {
-        setState((s) => (s === "light" ? "dark" : "light"));
+      setValue: () => {
+        setState((entireContext) => ({
+          ...entireContext,
+          dish: {
+            id: "1",
+            category: "main",
+            cousine: "nigerian",
+            description: "African dish",
+            imageSource: "some image",
+            name: "Jollof rice",
+            price: 2500,
+          },
+        }));
       },
     }),
     [state]
   );
-
-  const order = {
-    id: "some-id",
-    meal: {
-      name: "name",
-      image: "some image",
-      price: 3000,
-    },
-    drinks: [
-      {
-        id: "some=drink-id",
-        name: "beer",
-      },
-      {
-        id: "some=drink-id-2",
-        name: "wine",
-      },
-    ],
-    // date: new Date(),
-    // customerCount: 10,
-  };
-
-  // const exampleStuff = useMemo(
-  //   () => ({
-  //     value: state,
-  //     toggleValue: () => {
-  //       setState((entireContext) => ({
-  //         ...entireContext,
-  //         dish: {
-  //           // dish
-  //         },
-  //       }));
-  //     },
-  //   }),
-  //   [state]
-  // );
 
   return (
     <html lang="en">
       <body className={inter.className}>
         <Links />
         <main>
-          <SomeContext.Provider value={contextValue}>
+          <OrderContext.Provider value={orderContext}>
             {children}
-          </SomeContext.Provider>
+          </OrderContext.Provider>
         </main>
       </body>
     </html>
   );
 }
+
+/* <SomeContext.Provider value={contextValue}>
+            {children}
+          </SomeContext.Provider>*/
+
+/*  const contextValue = useMemo(
+() => ({
+value: state,
+toggleValue: () => {
+setState((s) => (s === "light" ? "dark" : "light"));
+},
+}),
+[state]
+); */
